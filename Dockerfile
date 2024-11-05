@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.21-alpine3.20 AS builder
+FROM golang:1.23.2-alpine3.19 AS builder
 WORKDIR /app
 
 COPY go.mod .
@@ -12,8 +12,7 @@ RUN go build -o bookshelf cmd/main.go
 
 
 # Run stage
-FROM alpine:3.16
-
+FROM alpine:3.18
 WORKDIR /app
 COPY --from=builder /app/bookshelf .
 COPY --from=builder /app/migrations migrations/
